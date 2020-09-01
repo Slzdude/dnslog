@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import EmptyPage, InvalidPage, PageNotAnInteger, Paginator
+from django.db import transaction
 from django.http import (
     HttpResponseNotAllowed,
     HttpResponseNotFound,
@@ -111,10 +112,10 @@ def dnslog(request):
     vardict["dnslogs"] = dnslogs
     vardict["numpages"] = paginator.num_pages
 
-    usersubdomain = UserSubDomain.objects.filter(user=user)[0].subdomain
-    vardict["userdomain"] = usersubdomain + "." + settings.DNS_DOMAIN
+    user_subdomain = UserSubDomain.objects.filter(user=user)[0].subdomain
+    vardict["userdomain"] = user_subdomain + "." + settings.DNS_DOMAIN
 
-    vardict["udomain"] = str(usersubdomain)
+    vardict["udomain"] = str(user_subdomain)
     vardict["admindomain"] = str(settings.ADMIN_DOMAIN)
     vardict["apikey"] = ApiKey.objects.filter(user=user)[0].key
 
@@ -253,9 +254,6 @@ def manage_user_add(request):
         if check_user:
             ret = {"status": -1, "msg": "username already exist!"}
             return JsonResponse(ret)
-
-        # database
-        from django.db import transaction
 
         try:
             with transaction.atomic():
