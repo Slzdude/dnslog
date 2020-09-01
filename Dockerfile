@@ -1,12 +1,12 @@
-FROM python:3.7-slim
+FROM python:3.8-slim
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        sqlite3 \
-    && rm -rf /var/lib/apt/lists/*
+RUN sed -i "s/archive.ubuntu.com/mirrors.aliyun.com/g" /etc/apt/sources.list && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends sqlite3 && \
+    rm -rf /var/lib/apt/lists/*
 
-WORKDIR /usr/src/app
-COPY requirements.txt ./
+WORKDIR /app
+COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY . .
 
