@@ -1,9 +1,9 @@
-import os
-
 from gevent import monkey
 
-monkey.patch_socket()
+monkey.patch_all()
+
 import copy
+import os
 import re
 import tempfile
 
@@ -14,7 +14,8 @@ from dnslib.server import BaseResolver, DNSLogger, DNSServer
 django.setup()
 from django.conf import settings
 
-from logview.models import DnsLog, UserSubDomain
+from dnslog.logs.models import DnsLog
+from dnslog.users.models import UserProfile
 
 
 class DjangoDNSLogger(DNSLogger):
@@ -44,11 +45,12 @@ class DjangoDNSLogger(DNSLogger):
         subdomain = re.search(r"\.?([^\.]+)\.%s\." % settings.DNS_DOMAIN, domain)
         if not subdomain:
             return
-        user = UserSubDomain.objects.filter(subdomain__iexact=subdomain.group(1))
+        user = UserProfile.objects.filter(subdomain__iexact=subdomain.group(1))
         if not user and domain.strip(".") != settings.ADMIN_DOMAIN:
-            user = UserSubDomain.objects.filter(subdomain__exact="@")
+            user = UserProfile.objects.filter(subdomain__exact="@")
         if not user:
             return
+        print("Resolving", user[0].user.username, domain)
         DnsLog(user=user[0].user, host=domain, type=QTYPE[request.q.qtype]).save()
 
     def log_send(self, handler, data):
@@ -122,11 +124,11 @@ def main():
         ns2domain=settings.NS2_DOMAIN,
         serverip=settings.SERVER_IP,
     )
-    resolver = ZoneResolver(zone, True)
-    logger = DjangoDNSLogger()
     print("Starting Zone Resolver (%s:%d) [%s]" % ("*", 53, "UDP"))
 
-    udp_server = DNSServer(resolver, port=53, address="", logger=logger)
+    udp_server = DNSServer(
+        ZoneResolver(zone, True), port=53, address="", logger=DjangoDNSLogger()
+    )
     udp_server.start()
 
 

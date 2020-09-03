@@ -1,0 +1,5 @@
+-r base.txt
+
+Werkzeug==1.0.1 # https://github.com/pallets/werkzeug
+django-debug-toolbar==2.2  # https://github.com/jazzband/django-debug-toolbar
+django-extensions==3.0.7  # https://github.com/django-extensions/django-extensions
