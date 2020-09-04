@@ -53,6 +53,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 # APPS
 # ------------------------------------------------------------------------------
 DJANGO_APPS = [
+    "django_hosts",
     "simpleui",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -125,6 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
+    "django_hosts.middleware.HostsRequestMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -136,6 +138,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_hosts.middleware.HostsResponseMiddleware",
 ]
 
 # STATIC
@@ -289,5 +292,8 @@ ADMIN_DOMAIN = env.str("ADMIN_DOMAIN")
 NS1_DOMAIN = env.str("NS1_DOMAIN")
 NS2_DOMAIN = env.str("NS2_DOMAIN")
 SERVER_IP = env.str("SERVER_IP")
+
+ROOT_HOSTCONF = "config.hosts"
+DEFAULT_HOST = "default"
 
 SIMPLEUI_ICON = {"请求日志": "fas fa-book"}

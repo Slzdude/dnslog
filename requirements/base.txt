@@ -22,3 +22,4 @@ gevent==20.6.2
 django-filter==2.3.0
 django-rest-auth==0.9.5
 django-simpleui==2020.7
+django-hosts==4.0

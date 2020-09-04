@@ -1,28 +1,11 @@
 from django.conf import settings
+from django.contrib import admin
 from django.urls import include, path
 from django.views import defaults as default_views
-from rest_framework.authtoken.views import obtain_auth_token
-from rest_framework.routers import DefaultRouter, SimpleRouter
 
-from dnslog.logs.views import WebLogViewSet
-from dnslog.users.views import UserViewSet
-
-if settings.DEBUG:
-    router = DefaultRouter()
-else:
-    router = SimpleRouter()
-
-router.register("users", UserViewSet)
-router.register("weblog", WebLogViewSet)
-
-app_name = "dnslog"
-
-urlpatterns = router.urls + [
-    # allauth api user
-    path("", include("rest_auth.urls")),
-    path("", include("rest_auth.registration.urls")),
-    # DRF auth token
-    path("token/", obtain_auth_token),
+urlpatterns = [
+    path("", admin.site.urls),
+    path("accounts/", include("allauth.urls")),
 ]
 
 if settings.DEBUG:
