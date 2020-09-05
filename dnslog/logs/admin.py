@@ -5,12 +5,12 @@ from dnslog.logs.models import DnsLog, WebLog
 
 @admin.register(WebLog)
 class WebLogAdmin(admin.ModelAdmin):
-    list_display = ["id", "ip", "path", "log_time"]
-    readonly_fields = ["user", "ip", "path", "log_time"]
+    list_display = ["id", "ip", "method", "path", "log_time"]
+    readonly_fields = ["method", "user", "ip", "path", "log_time"]
     save_as = False
     save_as_continue = False
     search_fields = ["ip", "path"]
-    list_filter = ["ip", "path"]
+    list_filter = ["method", "ip", "path"]
 
     def get_queryset(self, request):
         qs = super(WebLogAdmin, self).get_queryset(request)

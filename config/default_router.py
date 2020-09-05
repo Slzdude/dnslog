@@ -21,6 +21,7 @@ def index(request):
     WebLog.objects.create(
         user=profile.user,
         ip=request.META.get("REMOTE_ADDR"),
+        method=request.method,
         path=request.get_full_path(),
         header=json.dumps(dict(request.headers), indent=2),
         body=request.body,
