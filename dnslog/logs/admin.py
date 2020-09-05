@@ -17,4 +17,4 @@ class WebLogAdmin(admin.ModelAdmin):
 
 @admin.register(DnsLog)
 class DnsLogAdmin(admin.ModelAdmin):
-    list_display = ["id", "host", "type", "log_time"]
+    list_display = ["id", "host", "type", "client_ip", "log_time"]

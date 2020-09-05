@@ -20,6 +20,7 @@ class DnsLog(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     host = models.TextField("host")
     type = models.TextField("dns type")
+    client_ip = models.TextField(max_length=256, blank=True, help_text="客户端IP")
     log_time = models.DateTimeField("time loged", auto_now_add=True)
 
     class Meta:

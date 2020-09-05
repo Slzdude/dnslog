@@ -41,7 +41,12 @@ class DjangoDNSLogger(DNSLogger):
         if not user:
             return
         print("Resolving", user[0].user.username, domain)
-        DnsLog(user=user[0].user, host=domain, type=QTYPE[request.q.qtype]).save()
+        DnsLog(
+            user=user[0].user,
+            host=domain,
+            type=QTYPE[request.q.qtype],
+            client_ip=handler.client_address[0],
+        ).save()
 
     def log_send(self, handler, data):
         pass
