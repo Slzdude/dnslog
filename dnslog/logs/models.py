@@ -9,8 +9,8 @@ class WebLog(models.Model):
     ip = models.GenericIPAddressField("remote_addr")
     path = models.TextField("path")
     header = models.TextField("header")
-    body = models.TextField("body")
-    log_time = models.DateTimeField("time loged", auto_now_add=True)
+    body = models.TextField(blank=True, help_text="请求体")
+    log_time = models.DateTimeField(auto_now_add=True, help_text="记录时间")
 
     class Meta:
         ordering = ["-id"]
