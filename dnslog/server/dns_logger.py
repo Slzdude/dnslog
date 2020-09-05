@@ -28,7 +28,7 @@ class DjangoDNSLogger(DNSLogger):
         pass
 
     def log_request(self, handler, request):
-        domain = request.q.qname.__str__().lower()
+        domain = str(request.q.qname).lower()
         # self.default_logger.info(domain)
         if not domain.endswith(settings.DNS_DOMAIN + "."):
             return
@@ -43,7 +43,7 @@ class DjangoDNSLogger(DNSLogger):
         print("Resolving", user[0].user.username, domain)
         DnsLog(
             user=user[0].user,
-            host=domain,
+            host=domain.rstrip("."),
             type=QTYPE[request.q.qtype],
             client_ip=handler.client_address[0],
         ).save()
