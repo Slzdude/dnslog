@@ -1,12 +1,11 @@
 host = "0.0.0.0"
 port = 8000
 
-workers = 3
+workers = 4
 worker_class = "sync"
 worker_connections = 1000
 
 raw_env = [
-    "DJANGO_READ_DOT_ENV_FILE=true",
     "DJANGO_SETTINGS_MODULE=config.settings.production",
 ]
 daemon = False
