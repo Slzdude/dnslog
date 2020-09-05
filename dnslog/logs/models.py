@@ -8,6 +8,7 @@ class WebLog(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ip = models.GenericIPAddressField("remote_addr", help_text="客户端地址")
     method = models.CharField(max_length=16, help_text="请求方法")
+    host = models.CharField(max_length=300, help_text="请求域名")
     path = models.TextField("path", help_text="请求路径")
     header = models.TextField("header", help_text="请求头")
     body = models.TextField(blank=True, help_text="请求体")
