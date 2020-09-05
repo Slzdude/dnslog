@@ -30,7 +30,7 @@
     <option name="TEMPLATE_CONFIGURATION" value="Django" />
     <option name="TEMPLATE_FOLDERS">
       <list>
-        <option value="$MODULE_DIR$/logview/templates" />
+        <option value="$MODULE_DIR$/dnslog/templates" />
       </list>
     </option>
   </component>

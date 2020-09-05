@@ -1,5 +1,7 @@
-简介
----
+Yet Another DNSLog
+------------------
+
+[![simpleui](https://img.shields.io/badge/developing%20with-Simpleui-2077ff.svg)](https://github.com/newpanjing/simpleui)
 
 本版本是把dnslog重构了一遍，几乎没有之前的东西了。暂时使用Django Admin作为管理数据的
 UI，后续可能会使用AntDesign重构UI部分

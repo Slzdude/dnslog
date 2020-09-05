@@ -121,7 +121,7 @@ class Migration(migrations.Migration):
                 "verbose_name_plural": "users",
                 "abstract": False,
             },
-            managers=[("objects", dnslog.users.models.CustomUserManager()),],
+            managers=[("objects", django.contrib.auth.models.UserManager()),],
         ),
         migrations.CreateModel(
             name="UserProfile",

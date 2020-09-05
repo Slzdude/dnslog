@@ -296,3 +296,6 @@ ROOT_HOSTCONF = "config.hosts"
 DEFAULT_HOST = "default"
 
 SIMPLEUI_ICON = {"请求日志": "fas fa-book"}
+SIMPLEUI_ANALYSIS = False
+SIMPLEUI_HOME_INFO = False
+SIMPLEUI_HOME_PAGE = "home"
