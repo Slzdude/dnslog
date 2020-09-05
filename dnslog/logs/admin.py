@@ -6,7 +6,16 @@ from dnslog.logs.models import DnsLog, WebLog
 @admin.register(WebLog)
 class WebLogAdmin(admin.ModelAdmin):
     list_display = ["id", "ip", "method", "host", "path", "log_time"]
-    readonly_fields = ["method", "user", "host", "ip", "path", "log_time"]
+    readonly_fields = [
+        "method",
+        "user",
+        "host",
+        "ip",
+        "path",
+        "header",
+        "body",
+        "log_time",
+    ]
     save_as = False
     save_as_continue = False
     search_fields = ["ip", "path"]
